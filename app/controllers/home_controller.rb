@@ -1,24 +1,22 @@
 class HomeController < ApplicationController
 
-  def index 
+  def index
     @tracks = Track.all
-  end 
+  end
 
   def search
-    title = Regexp.new(params[:title].downcase)
-    band = Regexp.new(params[:band].downcase)
+    title = params[:title].to_s
+    @tracks = Track.find_all(title)
 
-    @tracks = Track.all.select do |track| 
-      if params[:band].present? 
-        track.band.downcase =~ band
-      else
-        track.title.downcase =~ title
-      end
-    end
     render "home/index"
   end
 
   def contact
-    
+
+  end
+
+  def find_soundcloud title
+    client = Soundcloud.new(:client_id => "ba08463663204b0206edffa3e8051c12")
+    client.get("/tracks", q: title, limit: 10)
   end
 end

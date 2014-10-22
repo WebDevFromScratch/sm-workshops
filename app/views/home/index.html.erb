@@ -1,4 +1,4 @@
-RUBIO 
+RUBIO
 <%= form_tag "/search" do %>
   <%= label_tag :title %>
   <%= text_field_tag :title %>
@@ -7,8 +7,8 @@ RUBIO
 <%= submit_tag "Search" %>
 <% end %>
 <br>
-<% @tracks.each do |track| %> 
-  <%= link_to track.title, track_path(track) %>
-  <%= track_path(track.to_param, category: "metal") %>
+<% @tracks.each do |track| %>
   <%= image_tag track.cover, heigth: 80, width: 80 %> <%= track.title %> - <%= track.band %> <br>
+  <%= link_to track.title, track_path(track.sc_id) %> <br>
+  <%= track.sc_id %> <br>
 <% end %>

@@ -1,10 +1,21 @@
 class Track
-  attr_accessor :title, :band, :cover 
+  attr_accessor :title, :band, :cover, :sc_id
 
-  def initialize title, band="Metallica", cover=""
-    @title = title 
-    @band = band 
-    @cover = cover 
+  def initialize title, sc_id, band="Metallica", cover=""
+    @sc_id = sc_id
+    @title = title
+    @band = band
+    @cover = cover
+  end
+
+  @@limit = 10
+
+  def self.limit=limit
+      @@limit = limit
+  end
+
+  def self.limit
+      @@limit || 10
   end
 
   def to_param
@@ -13,10 +24,32 @@ class Track
 
   def self.all
     [
-      Track.new("Enter Sandman", "Metallica", "http://www.earlytorise.com/wp-content/uploads/2009/10/metallica-enter-sandman-dirty-funker-remixs.jpg"),
-      Track.new("Lol", "Blog 27"),
-      Track.new("Hello"),
-      Track.new("Enter Sandman", "Iron"),
-    ] 
+  #    Track.new("Enter Sandman", "Metallica", "http://www.earlytorise.com/wp-content/uploads/2009/10/metallica-enter-sandman-dirty-funker-remixs.jpg"),
+  #    Track.new("Lol", "Blog 27"),
+  #    Track.new("Hello"),
+  #    Track.new("Enter Sandman", "Iron"),
+    ]
+  end
+
+  def self.find_all title
+    new_client.get("/tracks", q: title, limit: limit).map do |track|
+      sc_to_track(track)
+    end
+  end
+
+  def self.find id
+    track = new_client.get("/tracks/#{id}")
+    sc_to_track(track)
+  end
+
+  def self.new_client
+    client = Soundcloud.new(:client_id => "ba08463663204b0206edffa3e8051c12")
+  end
+
+  def self.sc_to_track sc_track
+    Track.new(track.title,
+              track.id,
+              track.user.username,
+              track.artwork_url)
   end
 end
