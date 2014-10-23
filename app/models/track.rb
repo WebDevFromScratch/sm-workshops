@@ -1,4 +1,4 @@
-class Track < ActiveRecord::Base # dunno if I can actually even do it..
+class Track #< ActiveRecord::Base # dunno if I can actually even do it..
   attr_accessor :title, :band, :cover, :sc_id, :genre, :permalink_url
 
   def initialize title, sc_id, band="Metallica", cover="", genre="unknown", permalink_url
@@ -9,9 +9,6 @@ class Track < ActiveRecord::Base # dunno if I can actually even do it..
     @genre = genre
     @permalink_url = permalink_url
   end
-
-  has_many :tracklists, foreign_key: :track_sc_id, primary_key: "sc_id"
-  has_many :playlists, through: :tracklists
 
   @@limit = 10
 
@@ -67,7 +64,7 @@ class Track < ActiveRecord::Base # dunno if I can actually even do it..
               track.permalink_url)
   end
 
-  # 23/10 adding a soundloud player widget
+  # 23/10 adding a soundcloud player widget
   def music_player
     embed_info = Track.new_client.get('/oembed', :url => self.permalink_url)
     embed_info['html'].html_safe # needed to add .html_safe to properly show the widget

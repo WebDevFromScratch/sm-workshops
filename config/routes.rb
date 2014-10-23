@@ -7,4 +7,9 @@ Rails.application.routes.draw do
   post "/search", controller: "home", action: "search"
 
   resources :playlists, only: [:index, :show, :new, :create]
+  resources :tracks, only: [] do
+    member do
+      post 'add_to_playlist' # think this over...
+    end
+  end
 end
