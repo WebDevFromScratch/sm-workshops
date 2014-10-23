@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get "/track/:id", controller: "tracks", action: "track", as: :track
   post "/search", controller: "home", action: "search"
 
+  resources :playlists, only: [:index, :show, :new, :create]
 end

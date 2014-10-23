@@ -1,0 +1,9 @@
+<%= link_to "Home", home_path %>
+<%= link_to "New Playlist", new_playlist_path %>
+
+<% @playlists.each do |playlist| %>
+  <li>
+    <h3><%= playlist.name %></h3>
+    <%= playlist.description %>
+  </li>
+<% end %>
