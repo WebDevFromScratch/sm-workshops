@@ -39,12 +39,12 @@ class Track #< ActiveRecord::Base # dunno if I can actually even do it..
     end
   end
 
-  # 23/10 adding this method TODO!
-  def self.find_by_genre find_by_genre
-    new_client.get("/tracks", q: genre, limit: limit).map do |track|
-      sc_to_track(track)
-    end
-  end
+  # 23/10 adding this method TODO! dunno, maybe ditch that...
+  # def self.find_by_genre find_by_genre
+  #   new_client.get("/tracks", q: genre, limit: limit).map do |track|
+  #     sc_to_track(track)
+  #   end
+  # end
 
   def self.find id
     track = new_client.get("/tracks/#{id}")

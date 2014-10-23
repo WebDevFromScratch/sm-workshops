@@ -4,6 +4,13 @@ class PlaylistsController < ApplicationController
   end
 
   def show
+    @playlist = Playlist.find(params[:id])
+    @playlist_tracks = []
+
+    @playlist.track_ids.each do |track_id|
+      track = Track.find(track_id.sc_id)
+      @playlist_tracks << track
+    end
   end
 
   def new

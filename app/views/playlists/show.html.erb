@@ -1,0 +1,11 @@
+<h1><%= @playlist.name %></h1>
+<p><%= @playlist.description %></p>
+
+<ul>
+  <% @playlist_tracks.each do |track| %>
+    <li>
+      <%= track.title %>
+      <%= link_to "Remove", "" %>
+    </li>
+  <% end %>
+</ul>
