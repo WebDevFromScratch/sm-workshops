@@ -28,14 +28,4 @@ class PlaylistsController < ApplicationController
       render :new
     end
   end
-
-  def remove_track
-    # think this through...
-
-    # 1. get a proper Track (actually, TrackId)
-    # 2. remove the association between it and the playlist
-    # 3. redirect back (render?) + add the flash message later on
-
-    binding.pry
-  end
 end
