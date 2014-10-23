@@ -9,6 +9,7 @@ class PlaylistsController < ApplicationController
 
     @playlist.track_ids.each do |track_id|
       track = Track.find(track_id.sc_id)
+      track.track_id = track_id.id
       @playlist_tracks << track
     end
   end
@@ -26,5 +27,15 @@ class PlaylistsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def remove_track
+    # think this through...
+
+    # 1. get a proper Track (actually, TrackId)
+    # 2. remove the association between it and the playlist
+    # 3. redirect back (render?) + add the flash message later on
+
+    binding.pry
   end
 end

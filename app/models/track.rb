@@ -1,5 +1,5 @@
 class Track #< ActiveRecord::Base # dunno if I can actually even do it..
-  attr_accessor :title, :band, :cover, :sc_id, :genre, :permalink_url
+  attr_accessor :title, :band, :cover, :sc_id, :genre, :permalink_url, :track_id
 
   def initialize title, sc_id, band="Metallica", cover="", genre="unknown", permalink_url
     @sc_id = sc_id
