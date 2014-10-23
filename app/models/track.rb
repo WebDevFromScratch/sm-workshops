@@ -1,11 +1,13 @@
 class Track
-  attr_accessor :title, :band, :cover, :sc_id
+  attr_accessor :title, :band, :cover, :sc_id, :genre, :permalink_url
 
-  def initialize title, sc_id, band="Metallica", cover=""
+  def initialize title, sc_id, band="Metallica", cover="", genre="unknown", permalink_url
     @sc_id = sc_id
     @title = title
     @band = band
     @cover = cover
+    @genre = genre
+    @permalink_url = permalink_url
   end
 
   @@limit = 10
@@ -37,6 +39,13 @@ class Track
     end
   end
 
+  # 23/10 adding this method TODO!
+  def self.find_by_genre find_by_genre
+    new_client.get("/tracks", q: genre, limit: limit).map do |track|
+      sc_to_track(track)
+    end
+  end
+
   def self.find id
     track = new_client.get("/tracks/#{id}")
     sc_to_track(track)
@@ -46,10 +55,18 @@ class Track
     client = Soundcloud.new(:client_id => "ba08463663204b0206edffa3e8051c12")
   end
 
-  def self.sc_to_track sc_track
+  def self.sc_to_track track
     Track.new(track.title,
               track.id,
               track.user.username,
-              track.artwork_url)
+              track.artwork_url,
+              track.genre,
+              track.permalink_url)
+  end
+
+  # 23/10 adding a soundloud player widget
+  def music_player
+    embed_info = Track.new_client.get('/oembed', :url => self.permalink_url)
+    embed_info['html'].html_safe # needed to add .html_safe to properly show the widget
   end
 end

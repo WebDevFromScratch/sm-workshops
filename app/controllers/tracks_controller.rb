@@ -2,6 +2,7 @@ class TracksController < ApplicationController
   def track
     id = params[:id]
     @track = Track.find(id)
+
     #@track = Track.new(@track.title,
     #                    @track.id,
     #                    @track.user.username,

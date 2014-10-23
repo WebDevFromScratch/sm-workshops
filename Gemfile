@@ -39,3 +39,5 @@ gem 'soundcloud'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'pry'
