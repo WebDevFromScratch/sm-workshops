@@ -2,6 +2,7 @@ class TracksController < ApplicationController
   def track
     id = params[:id]
     @track = Track.find(id)
+    @playlists = Playlist.all # added for playlist selection possibility
 
     #@track = Track.new(@track.title,
     #                    @track.id,
@@ -19,17 +20,15 @@ class TracksController < ApplicationController
   end
 
   def add_to_playlist
-    @playlist = Playlist.first # hardcoded (btw, do i need a '@' var here?)
+    @playlists = Playlist.all
+    @playlist = Playlist.find(params[:Playlist])
     @track = Track.find(params[:id]) # track not initialized... seems like some SoundCloud problem BUT! the same thing shows in track method, so should be okay
-    @id = TrackId.new(:sc_id => @track.sc_id) # somehow, I can't name this var @track_id... conflict of sorts?
-    
-    # later on think on how to not make a new track_id everytime, but check if one with that sc_id already exists in the db
-    # actually! I could do this saving each track_id as new, will only need to delete all track_ids which belongs to a playlist when removing them from that playlist/deleting that whole playlist
+    @new_track_id = TrackId.new(:sc_id => @track.sc_id) # somehow, I can't name this var @track_id... conflict of sorts?
 
-    @id.save
-    @playlist.track_ids << @id
+    @new_track_id.save
+    @playlist.track_ids << @new_track_id
     
     # add a flash alert later on TODO!
-    render :track
+    redirect_to track_path(@track.sc_id)
   end
 end

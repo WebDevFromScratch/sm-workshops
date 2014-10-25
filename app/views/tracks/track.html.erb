@@ -9,4 +9,9 @@
   <%= @track.music_player %>
 </div>
 
+<%= form_tag "/tracks/#{params[:id]}/add_to_playlist" do %>
+  <%= select_tag "Playlist", options_from_collection_for_select(@playlists, "id", "name") %>
+  <%= submit_tag "Add This Track" %>
+<% end %>
+
 <%= link_to "Add to Playlist", add_to_playlist_track_path, method: 'post' %>
