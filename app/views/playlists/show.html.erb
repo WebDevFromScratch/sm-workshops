@@ -9,3 +9,5 @@
     </li>
   <% end %>
 </ul>
+
+<%= link_to "Delete Playlist", playlist_path(@playlist), method: :delete, data: { confirm: "Are You Sure?"} %>

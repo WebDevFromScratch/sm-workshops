@@ -5,7 +5,6 @@ class TrackIdsController < ApplicationController
 
     @playlist.track_ids.delete(@track_id.id)
     @track_id.destroy
-
     redirect_to playlist_path(@playlist) # redirecting back to the playlist, this is not very CRUD - rename the action somehow?
   end
 end

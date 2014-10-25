@@ -21,8 +21,8 @@ class TracksController < ApplicationController
 
   def add_to_playlist
     @playlists = Playlist.all
-    @playlist = Playlist.find(params[:Playlist])
-    @track = Track.find(params[:id]) # track not initialized... seems like some SoundCloud problem BUT! the same thing shows in track method, so should be okay
+    @playlist = Playlist.find(params[:playlist])
+    @track = Track.find(params[:id])
     @new_track_id = TrackId.new(:sc_id => @track.sc_id) # somehow, I can't name this var @track_id... conflict of sorts?
 
     @new_track_id.save

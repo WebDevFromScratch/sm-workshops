@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "/track/:id", controller: "tracks", action: "track", as: :track
   post "/search", controller: "home", action: "search"
 
-  resources :playlists, only: [:index, :show, :new, :create] do
+  resources :playlists, only: [:index, :show, :new, :create, :destroy] do
     resources :track_ids, only: [:destroy]
     # member do
     #   post 'remove_track' # maybe this should be taken care of by TrackId controller?
