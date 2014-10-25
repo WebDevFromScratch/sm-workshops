@@ -1,5 +1,5 @@
-class Track
-  attr_accessor :title, :band, :cover, :sc_id, :genre, :permalink_url
+class Track #< ActiveRecord::Base # dunno if I can actually even do it..
+  attr_accessor :title, :band, :cover, :sc_id, :genre, :permalink_url, :track_id
 
   def initialize title, sc_id, band="Metallica", cover="", genre="unknown", permalink_url
     @sc_id = sc_id
@@ -39,12 +39,12 @@ class Track
     end
   end
 
-  # 23/10 adding this method TODO!
-  def self.find_by_genre find_by_genre
-    new_client.get("/tracks", q: genre, limit: limit).map do |track|
-      sc_to_track(track)
-    end
-  end
+  # 23/10 adding this method TODO! dunno, maybe ditch that...
+  # def self.find_by_genre find_by_genre
+  #   new_client.get("/tracks", q: genre, limit: limit).map do |track|
+  #     sc_to_track(track)
+  #   end
+  # end
 
   def self.find id
     track = new_client.get("/tracks/#{id}")
@@ -64,7 +64,7 @@ class Track
               track.permalink_url)
   end
 
-  # 23/10 adding a soundloud player widget
+  # 23/10 adding a soundcloud player widget
   def music_player
     embed_info = Track.new_client.get('/oembed', :url => self.permalink_url)
     embed_info['html'].html_safe # needed to add .html_safe to properly show the widget

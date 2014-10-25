@@ -4,6 +4,14 @@ class PlaylistsController < ApplicationController
   end
 
   def show
+    @playlist = Playlist.find(params[:id])
+    @playlist_tracks = []
+
+    @playlist.track_ids.each do |track_id|
+      track = Track.find(track_id.sc_id)
+      track.track_id = track_id.id
+      @playlist_tracks << track
+    end
   end
 
   def new
@@ -19,5 +27,14 @@ class PlaylistsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    @playlist = Playlist.find(params[:id])
+
+    @playlist.track_ids.each { |track_id| track_id.destroy } # first remove all now unnecessary TrackId objects
+    @playlist.track_ids.clear
+    @playlist.destroy
+    redirect_to playlists_path
   end
 end

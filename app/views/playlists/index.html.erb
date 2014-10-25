@@ -1,9 +1,8 @@
-<%= link_to "Home", home_path %>
 <%= link_to "New Playlist", new_playlist_path %>
 
 <% @playlists.each do |playlist| %>
   <li>
-    <h3><%= playlist.name %></h3>
+    <h3><%= link_to playlist.name, playlist_path(playlist) %></h3>
     <%= playlist.description %>
   </li>
 <% end %>
