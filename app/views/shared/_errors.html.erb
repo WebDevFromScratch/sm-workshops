@@ -1,6 +1,6 @@
-<h3>Please Fix the Following Errors:</h3>
-
 <% if obj.errors.any? %>
+  <h3>Please Fix the Following Errors:</h3>
+
   <ul>
     <% obj.errors.full_messages.each do |message| %>
       <li><%= message %></li>

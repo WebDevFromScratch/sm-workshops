@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get "/track/:id", controller: "tracks", action: "track", as: :track
   post "/search", controller: "home", action: "search"
   get "/register", to: 'users#new' # just a different syntax
+  get "/login", to: 'sessions#new'
+  post "/login", to: 'sessions#create'
+  get "/logout", to: 'sessions#destroy' # should this be a get?
 
   resources :playlists, only: [:index, :show, :new, :create, :destroy] do
     resources :track_ids, only: [:destroy]
