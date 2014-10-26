@@ -10,15 +10,15 @@ Rails.application.routes.draw do
   post "/login", to: 'sessions#create'
   get "/logout", to: 'sessions#destroy' # should this be a get?
 
-  resources :playlists, only: [:index, :show, :new, :create, :destroy] do
-    resources :track_ids, only: [:destroy]
-  end
-
   resources :tracks, only: [] do
     member do
       post 'add_to_playlist' # think this over...
     end
   end
 
-  resources :users, only: [:create] # have to use it like a std (CRUD) route due to form_for convention
+  resources :users, only: [:create] do # have to use it like a std (CRUD) route due to form_for convention
+    resources :playlists, only: [:index, :show, :new, :create, :destroy] do
+      resources :track_ids, only: [:destroy]
+    end
+  end
 end

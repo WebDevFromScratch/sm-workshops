@@ -1,6 +1,6 @@
 <%= render 'shared/errors', obj: @playlist %>
 
-<%= form_for @playlist do |f| %>
+<%= form_for [@user, @playlist] do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <br/>

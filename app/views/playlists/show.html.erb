@@ -5,9 +5,9 @@
   <% @playlist_tracks.each do |track| %>
     <li>
       <%= link_to track.title, track_path(track.sc_id) %> <!-- later on: somehow mark on track view if it's already in this playlist -->
-      <%= link_to "Remove from Playlist", playlist_track_id_path(@playlist.id, track.track_id), method: :delete, data: { confirm: "Are You Sure?"} %>
+      <%= link_to "Remove from Playlist", user_playlist_track_id_path(@user, @playlist, track.track_id), method: :delete, data: { confirm: "Are You Sure?"} %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "Delete Playlist", playlist_path(@playlist), method: :delete, data: { confirm: "Are You Sure?"} %>
+<%= link_to "Delete Playlist", user_playlist_path(@user, @playlist), method: :delete, data: { confirm: "Are You Sure?"} %>

@@ -1,6 +1,8 @@
 class PlaylistsController < ApplicationController
+  before_action :set_user
+
   def index
-    @playlists = Playlist.all # avoid using all later on
+    @playlists = @user.playlists.all # avoid using all later on
   end
 
   def show
@@ -20,10 +22,11 @@ class PlaylistsController < ApplicationController
 
   def create
     @playlist = Playlist.new(params.require(:playlist).permit(:name, :description))
+    @playlist.user_id = @user.id
 
     if @playlist.save
       # add flash alerts (both here and to the views) TODO!
-      redirect_to playlists_path
+      redirect_to user_playlists_path(@user)
     else
       render :new
     end
@@ -34,6 +37,12 @@ class PlaylistsController < ApplicationController
 
     @playlist.track_ids.each { |track_id| track_id.destroy } # first remove all now unnecessary TrackId objects
     @playlist.destroy
-    redirect_to playlists_path
+    redirect_to user_playlists_path(@user)
+  end
+
+  private
+
+  def set_user
+    @user = current_user
   end
 end
