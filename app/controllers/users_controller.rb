@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
     if @user.save
       # flash message later on (on adding front end) TODO!
+      session[:user_id] = @user.id # auto logging in on registering
       redirect_to home_path
     else
       render :new

@@ -1,4 +1,6 @@
 class TrackIdsController < ApplicationController
+  before_action :require_user
+
   def destroy
     @user = current_user
     @playlist = Playlist.find(params[:playlist_id])

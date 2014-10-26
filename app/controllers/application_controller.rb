@@ -12,4 +12,13 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id]) unless session[:user_id].blank?
   end
+
+  def require_user
+    access_denied unless logged_in?
+  end
+
+  def access_denied
+    # flash message
+    redirect_to home_path
+  end
 end

@@ -7,8 +7,10 @@
   <%= @track.music_player %>
 </div>
 
-<%= form_tag "/tracks/#{params[:id]}/add_to_playlist" do %>
-  <%= label_tag :playlist %>
-  <%= select_tag :playlist, options_from_collection_for_select(@playlists, "id", "name") %>
-  <%= submit_tag "Add This Track" %>
+<% if logged_in? %>
+  <%= form_tag "/tracks/#{params[:id]}/add_to_playlist" do %>
+    <%= label_tag :playlist %>
+    <%= select_tag :playlist, options_from_collection_for_select(@playlists, "id", "name") %>
+    <%= submit_tag "Add This Track" %>
+  <% end %>
 <% end %>

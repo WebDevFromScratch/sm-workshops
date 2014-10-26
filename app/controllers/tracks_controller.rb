@@ -1,17 +1,14 @@
 class TracksController < ApplicationController
-  before_action :set_user_and_playlists, only: [:track, :add_to_playlist]
+  before_action :require_user, only: [:add_to_playlist]
+  before_action :set_user_and_playlists, only: [:add_to_playlist]
 
   def track
+    if logged_in?
+      set_user_and_playlists
+    end
+
     id = params[:id]
     @track = Track.find(id)
-
-    #@track = Track.new(@track.title,
-    #                    @track.id,
-    #                    @track.user.username,
-    #                    @track.artwork_url)
-    #@track = Track.all.find do |track|
-    #  track.to_param == params[:param_title]
-    #end
   end
 
   def find_soundcloud_by_id id
@@ -31,6 +28,8 @@ class TracksController < ApplicationController
     # add a flash alert later on TODO!
     redirect_to track_path(@track.sc_id)
   end
+
+  private
 
   def set_user_and_playlists
     @user = current_user

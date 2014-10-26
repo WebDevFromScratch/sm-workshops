@@ -1,4 +1,5 @@
 class PlaylistsController < ApplicationController
+  before_action :require_user
   before_action :set_user
 
   def index
