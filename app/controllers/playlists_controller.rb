@@ -33,7 +33,6 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
 
     @playlist.track_ids.each { |track_id| track_id.destroy } # first remove all now unnecessary TrackId objects
-    @playlist.track_ids.clear
     @playlist.destroy
     redirect_to playlists_path
   end

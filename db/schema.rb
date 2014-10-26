@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141026124305) do
+ActiveRecord::Schema.define(version: 20141026144119) do
 
   create_table "playlists", force: true do |t|
     t.string   "name"
@@ -24,13 +24,7 @@ ActiveRecord::Schema.define(version: 20141026124305) do
     t.integer  "sc_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "tracklists", force: true do |t|
     t.integer  "playlist_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "track_id_id"
   end
 
   create_table "users", force: true do |t|

@@ -1,4 +1,3 @@
 class TrackId < ActiveRecord::Base
-  has_many :tracklists
-  has_many :playlists, through: :tracklists
+  belongs_to :playlist
 end
