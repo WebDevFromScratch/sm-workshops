@@ -1,13 +1,28 @@
-<h1><%= @playlist.name %></h1>
-<p><%= @playlist.description %></p>
+<h1 class="text-center"><%= @playlist.name %></h1>
+<h4 class="text-center"><%= @playlist.description %></h4>
+<br/>
 
-<ul>
+<% if @track %>
+  <div class="well">
+    <%= @track.music_player %>
+  </div>
+<% end %>
+
+<div class="row">
   <% @playlist_tracks.each do |track| %>
-    <li>
-      <%= link_to track.title, track_path(track.sc_id) %> <!-- later on: somehow mark on track view if it's already in this playlist -->
-      <%= link_to "Remove from Playlist", user_playlist_track_id_path(@user, @playlist, track.track_id), method: :delete, data: { confirm: "Are You Sure?"} %>
-    </li>
+    <div class="col-xs-11">
+      <%= render 'tracks/track', track: track %>
+    </div>
+    <div class="col-xs-1">
+      <div class="well well-sm">
+        <%= link_to user_playlist_track_id_path(@user, @playlist, track.track_id), method: :delete, data: { confirm: "Are You Sure?"} do %>
+          <span class="glyphicon glyphicon-remove"></span>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>
 
-<%= link_to "Delete Playlist", user_playlist_path(@user, @playlist), method: :delete, data: { confirm: "Are You Sure?"} %>
+<div class="col-sm-4 col-sm-offset-4">
+  <%= link_to "Delete Playlist", user_playlist_path(@user, @playlist), method: :delete, data: { confirm: "Are You Sure?"}, class: "btn btn-danger btn-block btn-lg" %>
+</div>

@@ -1,15 +1,19 @@
-RUBIO
+<h1 class="text-center">Search Your Favorite Songs</h1>
+<br/>
 
-<%= form_tag "/search" do %>
+<%= form_tag "/search", class: "form-inline text-center" do %>
   <%= label_tag :title %>
-  <%= text_field_tag :title %>
+  <%= text_field_tag :title, nil, class: 'form-control' %>
   <%= label_tag :band %> <!-- what is that doing here? sth from workshops no.1? -->
-  <%= text_field_tag :band %>
-<%= submit_tag "Search" %>
+  <%= text_field_tag :band, nil, class: 'form-control' %>
+  <%= submit_tag "Search", class: 'btn btn-primary' %>
 <% end %>
-<br>
+<br/>
+
+<% if @tracks.any? %>
+  <h2 class="text-center">Results</h2>
+<% end %>
+
 <% @tracks.each do |track| %>
-  <%= image_tag track.cover, heigth: 80, width: 80 %> <%= track.title %> - <%= track.band %> <br>
-  <%= link_to track.title, track_path(track.sc_id) %> <br>
-  <%= track.sc_id %> <br>
+  <%= render 'tracks/track', track: track %>
 <% end %>

@@ -1,16 +1,20 @@
-<%= @track.title %>
-<%= image_tag @track.cover %>
-<%= @track.genre %>
+<h2 class="text-center"><%= @track.band %></h2>
+<div class="text-center">
+  <%= image_tag @track.cover, height: 200, width: 200 %>
+</div>
 
+<h1 class="text-center"><%= @track.title %></h1>
+<h4 class="text-center"><%= @track.genre %></h4>
 <br/>
-<div>
+
+<div class="well">
   <%= @track.music_player %>
 </div>
 
 <% if logged_in? %>
-  <%= form_tag "/tracks/#{params[:id]}/add_to_playlist" do %>
+  <%= form_tag "/tracks/#{params[:id]}/add_to_playlist", class: "form-inline text-center" do %>
     <%= label_tag :playlist %>
-    <%= select_tag :playlist, options_from_collection_for_select(@playlists, "id", "name") %>
-    <%= submit_tag "Add This Track" %>
+    <%= select_tag :playlist, options_from_collection_for_select(@playlists, "id", "name"), class: "form-control" %>
+    <%= submit_tag "Add This Track", class: "btn btn-primary" %>
   <% end %>
 <% end %>

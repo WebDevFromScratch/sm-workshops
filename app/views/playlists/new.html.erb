@@ -1,11 +1,18 @@
 <%= render 'shared/errors', obj: @playlist %>
 
-<%= form_for [@user, @playlist] do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<%= form_for [@user, @playlist], class: "form-horizontal" do |f| %>
+  <div class="form-group">
+    <%= f.label :name, class: "col-sm-2"%>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-2" %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: 'form-control', rows: '6' %>
+    </div>
+  </div>
   <br/>
-  <%= f.label :description %>
-  <%= f.text_area :description %>
-  <br/>
-  <%= f.submit %>
+  <%= f.submit class: 'btn btn-primary pull-right'%>
 <% end %>

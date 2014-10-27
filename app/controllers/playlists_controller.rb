@@ -15,6 +15,8 @@ class PlaylistsController < ApplicationController
       track.track_id = track_id.id
       @playlist_tracks << track
     end
+
+    @track = @playlist_tracks.first # figure out how to switch to a next song when this ends TODO!
   end
 
   def new
