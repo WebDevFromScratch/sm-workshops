@@ -1,0 +1,6 @@
+<div class="well well-sm">
+  <%= image_tag track.cover, heigth: 80, width: 80 %>
+  <%= link_to track_path(track.sc_id), class: "track-font" do %>
+    <%= track.title %> - <%= track.band %>
+  <% end %>
+</div>

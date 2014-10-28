@@ -1,9 +1,11 @@
 <% if obj.errors.any? %>
-  <h3>Please Fix the Following Errors:</h3>
+  <div class="well">
+    <h3>Please Fix the Following Errors:</h3>
 
-  <ul>
-    <% obj.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
+    <ul>
+      <% obj.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>

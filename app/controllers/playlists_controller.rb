@@ -3,7 +3,7 @@ class PlaylistsController < ApplicationController
   before_action :set_user
 
   def index
-    @playlists = @user.playlists.all # avoid using all later on
+    @playlists = @user.playlists.all # avoid using all later on (page-ify or sth)
   end
 
   def show
@@ -15,6 +15,8 @@ class PlaylistsController < ApplicationController
       track.track_id = track_id.id
       @playlist_tracks << track
     end
+
+    @track = @playlist_tracks.first # figure out how to switch to a next song when this ends TODO!
   end
 
   def new
@@ -26,7 +28,7 @@ class PlaylistsController < ApplicationController
     @playlist.user_id = @user.id
 
     if @playlist.save
-      # add flash alerts (both here and to the views) TODO!
+      flash[:success] = "You have created a new playlist"
       redirect_to user_playlists_path(@user)
     else
       render :new
@@ -38,6 +40,7 @@ class PlaylistsController < ApplicationController
 
     @playlist.track_ids.each { |track_id| track_id.destroy } # first remove all now unnecessary TrackId objects
     @playlist.destroy
+    flash[:success] = "The playlist has been deleted"
     redirect_to user_playlists_path(@user)
   end
 
