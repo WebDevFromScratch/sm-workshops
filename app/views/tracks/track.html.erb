@@ -7,14 +7,18 @@
 <h4 class="text-center"><%= @track.genre %></h4>
 <br/>
 
-<div class="well">
-  <%= link_to @track.title, @track.permalink_url, class: 'sc-player' %>
+<div class="row">
+  <div class="col-sm-2 col-sm-offset-4">
+    <%= link_to @track.title, @track.permalink_url, class: 'sc-player' %>
+  </div>
 </div>
 
-<% if logged_in? %>
-  <%= form_tag "/tracks/#{params[:id]}/add_to_playlist", class: "form-inline text-center" do %>
-    <%= label_tag :playlist %>
-    <%= select_tag :playlist, options_from_collection_for_select(@playlists, "id", "name"), class: "form-control" %>
-    <%= submit_tag "Add This Track", class: "btn btn-primary" %>
+<div class="row">
+  <% if logged_in? %>
+    <%= form_tag "/tracks/#{params[:id]}/add_to_playlist", class: "form-inline text-center" do %>
+      <%= label_tag :playlist %>
+      <%= select_tag :playlist, options_from_collection_for_select(@playlists, "id", "name"), class: "form-control" %>
+      <%= submit_tag "Add This Track", class: "btn btn-primary" %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
