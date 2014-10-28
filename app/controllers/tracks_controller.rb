@@ -12,7 +12,6 @@ class TracksController < ApplicationController
   end
 
   def find_soundcloud_by_id id
-    # check Soundcloud API
     client = Soundcloud.new(:client_id => "ba08463663204b0206edffa3e8051c12")
     client.get("/tracks/#{id}")
   end
@@ -24,9 +23,8 @@ class TracksController < ApplicationController
 
     @new_track_id.save
     @playlist.track_ids << @new_track_id
-    
-    # add a flash alert later on TODO!
-    redirect_to track_path(@track.sc_id)
+    flash[:success] = "The track has been added to #{@playlist.name}"
+    redirect_to user_playlist_path(current_user, @playlist)
   end
 
   private

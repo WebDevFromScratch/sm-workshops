@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(params.require(:user).permit(:username, :password))
 
     if @user.save
-      # flash message later on (on adding front end) TODO!
+      flash[:success] = "You have successfully registered"
       session[:user_id] = @user.id # auto logging in on registering
       redirect_to home_path
     else
