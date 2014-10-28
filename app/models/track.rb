@@ -64,9 +64,9 @@ class Track #< ActiveRecord::Base # dunno if I can actually even do it..
               track.permalink_url)
   end
 
-  # 23/10 adding a soundcloud player widget
-  def music_player
-    embed_info = Track.new_client.get('/oembed', :url => self.permalink_url)
-    embed_info['html'].html_safe # needed to add .html_safe to properly show the widget
-  end
+  # 23/10 adding a soundcloud player widget --> then being changed to a custom player, due to playlists
+  # def music_player
+  #   # embed_info = Track.new_client.get('/oembed', :url => self.permalink_url)
+  #   # embed_info['html'].html_safe # needed to add .html_safe to properly show the widget
+  # end
 end
