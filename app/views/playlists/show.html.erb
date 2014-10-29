@@ -2,11 +2,15 @@
 <h4 class="text-center"><%= @playlist.description %></h4>
 <br/>
 
-<% if @track %>
-  <div class="well">
-    <%= @track.music_player %>
-  </div>
-<% end %>
+<div class="col-sm-2 col-sm-offset-4">
+  <% if @playlist_tracks.any? %>
+    <div class="sc-player">
+      <% @playlist_tracks.each do |track| %>
+        <%= link_to track.title, track.permalink_url %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
 <div class="row">
   <% @playlist_tracks.each do |track| %>
