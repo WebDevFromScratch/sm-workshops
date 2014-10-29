@@ -11,7 +11,7 @@
 <br/>
 
 <% if @tracks.any? %>
-  <h2 class="text-center">Results</h2>
+  <h2 class="text-center"><%= @tracks_header %></h2>
 <% end %>
 
 <% @tracks.each do |track| %>

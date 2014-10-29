@@ -39,7 +39,13 @@ class Track #< ActiveRecord::Base # dunno if I can actually even do it..
     end
   end
 
-  # 23/10 adding this method TODO! dunno, maybe ditch that...
+  def self.hottest_tracks # SoundCloud hottest tracks, for default home view
+    new_client.get("/tracks", limit: limit, order: 'hotness').map do |track|
+      sc_to_track(track)
+    end
+  end
+
+  # 23/10 adding this method TODO! dunno, maybe ditch that... - also find by band
   # def self.find_by_genre find_by_genre
   #   new_client.get("/tracks", q: genre, limit: limit).map do |track|
   #     sc_to_track(track)
@@ -64,7 +70,7 @@ class Track #< ActiveRecord::Base # dunno if I can actually even do it..
               track.permalink_url)
   end
 
-  # 23/10 adding a soundcloud player widget --> then being changed to a custom player, due to playlists
+  # 23/10 adding a soundcloud player widget --> then being changed to a custom player, due to playlists (28/10)
   # def music_player
   #   # embed_info = Track.new_client.get('/oembed', :url => self.permalink_url)
   #   # embed_info['html'].html_safe # needed to add .html_safe to properly show the widget
